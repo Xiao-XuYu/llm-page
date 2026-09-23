@@ -1,0 +1,1 @@
+var o="app:",a={get(e,t=null){try{let r=localStorage.getItem(o+e);return r===null?t:JSON.parse(r)}catch{return t}},set(e,t){try{localStorage.setItem(o+e,JSON.stringify(t))}catch(r){console.warn("[storage] write failed:",r)}},remove(e){localStorage.removeItem(o+e)},clear(){Object.keys(localStorage).filter(e=>e.startsWith(o)).forEach(e=>localStorage.removeItem(e))}};export{a};

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Web Component App (built)</title>
+
+    <!-- 内联空 SVG favicon,避免 :6110/favicon.ico 404 -->
+    <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'/%3E" />
+
+    <!-- env 必须在 app.js 之前注入 (由 restart.sh 从 .env 生成) -->
+    <script src="./js/env-config.js"></script>
+
+    <!-- Tailwind Play CDN:零构建,直接在浏览器里 JIT 编译 utility class -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- 第三方库 CDN:多 Agent 编辑器依赖 -->
+    <!-- fflate:打包 ZIP(导出多文件项目用) -->
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
+    <!-- htmldiff-js:CDN 包是坏 webpack bundle(`module is not defined`),改用本地 js/utils/diff.js -->
+    <script>
+      // 可在此扩展主题色、暗色模式等
+      tailwind.config = {
+        darkMode: "media",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: [
+                'system-ui', '-apple-system', '"Segoe UI"', 'Roboto',
+                '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif',
+              ],
+              mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Consolas', 'monospace'],
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- 全屏预览样式由 web-builder.js mount() 动态注入,避免被 Tailwind Play CDN 吞掉 -->
+  </head>
+  <body class="h-full text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <!-- 应用根组件 -->
+    <app-shell></app-shell>
+
+    <!-- 通用弹窗 -->
+    <app-dialog id="global-dialog"></app-dialog>
+
+    <script type="module" src="./js/app.js"></script>
+  </body>
+</html>
