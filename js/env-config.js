@@ -2,7 +2,7 @@
 // 修改 .env 后运行 ./publish.sh 重新生成。
 window.__ENV__ = {
   AI_MODEL: "MiniMax-M3",
-  OPENAI_API_KEY: "sk-cp-0m-e4Ba7tdxMeO3fzCWEkvhFGqj1hHV8CQxoTIXxfUoksFplTxMxIkMoSuBMxlJwnMM62i-hwjAhCKyq_Sln5Z2yHeaRCU7KL6ywYlhzQ-OrkxRe4H8ICNI",
+  OPENAI_API_KEY: "sk-cp-ssvg9SO8WEgp3Lo75O3SKWb5jFZ5eNQWwunxm8Wnb3bdUTiHLCshunYbK2MVh1_v44DBaBTnTFJD09btg93g5WMR2Z-Gmul49vDmaBVy6b6WNbQoBu6sXlE",
   PORT: "6110",
   AI_BASE_URL: "https://api.minimaxi.com/v1",
   DEPLOY_DIR: "D:\files\items\llm-page",
