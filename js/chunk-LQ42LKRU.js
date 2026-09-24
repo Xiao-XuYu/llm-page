@@ -14,6 +14,8 @@ var n=new Map,p={on(o,e){return n.has(o)||n.set(o,new Set),n.get(o).add(e),()=>p
     width: 100%;
     height: 100%;
     box-sizing: border-box;
+    /* P1-6:\u79FB\u52A8\u7AEF\u963B\u6B62\u89E6\u6478\u4ECE iframe \u900F\u4F20\u5230\u62BD\u5C49 */
+    touch-action: manipulation;
   }
 
   /* iframe sandbox:\u586B\u6EE1\u5BB9\u5668,\u5E26\u9ED8\u8BA4\u767D\u5E95,\u65E0\u8FB9\u6846 */
@@ -24,6 +26,9 @@ var n=new Map,p={on(o,e){return n.has(o)||n.set(o,new Set),n.get(o).add(e),()=>p
     display: block;
     background: white;
     color-scheme: light dark;
+    /* P1-6:iframe \u5185\u6EDA\u52A8\u5141\u8BB8\u53CC\u6307\u7F29\u653E,\u4F46\u4E0D\u4F20\u7ED9\u5916\u5C42\u62BD\u5C49\u7684 swipe \u5173\u95ED\u624B\u52BF */
+    touch-action: pan-y pinch-zoom;
+    overscroll-behavior: contain;
   }
 
   /* \u7A7A\u72B6\u6001:\u9ED8\u8BA4\u9690\u85CF,\u7236\u7EA7\u9700\u8981\u65F6\u901A\u8FC7 [data-show-empty] \u6253\u5F00 */

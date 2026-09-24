@@ -2,7 +2,12 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0f172a" media="(prefers-color-scheme: dark)" />
+    <meta name="format-detection" content="telephone=no" />
     <title>AI网页生成</title>
 
     <!-- 内联空 SVG favicon,避免 :6110/favicon.ico 404 -->
@@ -10,6 +15,74 @@
 
     <!-- env 必须在 app.js 之前注入 (由 restart.sh 从 .env 生成) -->
     <script src="./js/env-config.js"></script>
+
+    <!-- 全局移动端基础样式 + dialog 滚动锁(2026-09-24) -->
+    <style>
+      /* safe-area inset 实用 class(任何需要尊重刘海 / home 指示器的元素) */
+      .safe-top    { padding-top:    max(env(safe-area-inset-top),    0px); }
+      .safe-bottom { padding-bottom: max(env(safe-area-inset-bottom), 0px); }
+      .safe-left   { padding-left:   max(env(safe-area-inset-left),   0px); }
+      .safe-right  { padding-right:  max(env(safe-area-inset-right),  0px); }
+
+      /* 任何 <dialog> 打开时(html 加 .dialog-open)锁背景滚动
+         - overflow:hidden 阻止桌面 chrome 滚动
+         - overscroll-behavior:none + touch-action:none 阻止 iOS Safari 触摸穿透 */
+      html.dialog-open,
+      html.dialog-open body {
+        overflow: hidden !important;
+        overscroll-behavior: none !important;
+      }
+      html.dialog-open { touch-action: none; }
+
+      /* mobile:所有 <dialog> 变底部 sheet(bottom sheet)
+         - 占满底部 92vh
+         - 圆角顶角
+         - 安全区 inset bottom(尊重 home 指示器)
+         - 桌面 (>768) 退回默认居中弹框 */
+      @media (max-width: 767px) {
+        dialog {
+          align-items: flex-end !important;
+          width: 100vw !important;
+          max-width: 100vw !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          max-height: 92vh !important;
+          border-radius: 16px 16px 0 0 !important;
+          padding-bottom: env(safe-area-inset-bottom) !important;
+        }
+        /* <form> 也要跟 dialog 一致圆角 */
+        dialog > form {
+          border-radius: 16px 16px 0 0 !important;
+        }
+      }
+
+      /* P2-4:状态栏可点击时,加 dotted underline 暗示「可点击查看详情」(aborted / err 时) */
+      .status-clickable {
+        text-decoration: underline dotted;
+        text-underline-offset: 2px;
+      }
+
+      /* P2-2:#workspace-tree 在 mobile chrome(默认隐藏滚动条) 难以看出"还有内容",
+         用 mask-image 在顶/底添加渐隐遮罩,提示用户能滚动 */
+      @media (max-width: 767px) {
+        .workspace-tree-mask {
+          mask-image: linear-gradient(
+            to bottom,
+            transparent 0,
+            black 16px,
+            black calc(100% - 16px),
+            transparent 100%
+          );
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            transparent 0,
+            black 16px,
+            black calc(100% - 16px),
+            transparent 100%
+          );
+        }
+      }
+    </style>
 
     <!-- Tailwind Play CDN:零构建,直接在浏览器里 JIT 编译 utility class -->
     <script src="https://cdn.tailwindcss.com"></script>
